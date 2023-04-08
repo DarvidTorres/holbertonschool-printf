@@ -1,3 +1,5 @@
+#ifndef HEADER_FILE
+#define HEADER_FILE
 /* ======= LIBRARIES ======= */
 #include <stdarg.h>
 #include <stdlib.h>
@@ -44,3 +46,4 @@ int _abs(int n);
 char *_itoa(int value, int base);
 char *_utoa(unsigned int value, unsigned int base);
 char *_lcutoa(unsigned int value, unsigned int base);
+#endif
