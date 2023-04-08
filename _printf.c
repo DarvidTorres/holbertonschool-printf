@@ -1,46 +1,45 @@
 #include "main.h"
 /**
-* _printf - print function
-* @format: str
-* Return: integer
-*/
+* _printf - function that produces output according to a formaint.
+* @format: is a character string.
+* Return: the number of characters printed.
+**/
 int _printf(const char *format, ...)
 {
-char *buff;
-int  i = 0, count = 0;
-va_list arg_value;
-int (*func)(char *, int, va_list);
-buff = malloc(4000);
-if ((!format || !buff) || (format[0] == '%' && format[1] == '\0'))
+int i = 0, counter = 0;
+va_list arg;
+int (*f)(va_list);
+if (format == NULL)
 {
-free(buff);
-exit(1);
+return (-1);
 }
-va_start(arg_value, format);
-while (format[i])
+va_start(arg, format);
+while (format[i] != '\0')
 {
-if (format[i] != '%')
+while (format[i] != '%' && format[i] != '\0')
 {
-buff[count] = format[i];
-count++;
-}
-else
-{
-func = check_prtr(format[i + 1]);
-if (!func)
-{
-buff[count] = '%';
+_putchar(format[i]);
+counter++;
 i++;
-count++;
+}
+if (format[i] == '\0')
+return (counter);
+f = get_op_func(&format[i + 1]);
+if (f != NULL)
+{
+counter += f(arg);
+i += 2;
 continue;
 }
-count = func(&buff[count], count, arg_value);
+if (format[i + 1] == '\0')
+return (-1);
+_putchar(format[i]);
+counter++;
+if (format[i + 1] == '%')
+i += 2;
+else
 i++;
 }
-i++;
-}
-write(1, buff, count);
-va_end(arg_value);
-free(buff);
-return (count);
+va_end(arg);
+return (counter);
 }
