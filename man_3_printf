@@ -1,6 +1,3 @@
-.\" _printf manual.
-.TH _printf               Linux programmer's Manual               _printf
-.SH NAME
 _printf \- produces a formated output to a strandard output.
 .SH SYPNOSIS
 #include "main.h"
